@@ -1,0 +1,38 @@
+meta {
+  name: 01 - POST elegibilidades (202)
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{baseUrl}}/elegibilidades
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "cpf": "12345678901",
+    "codigo_operadora": "OPS-001",
+    "matricula_plano": "MAT-2026-001"
+  }
+}
+
+vars:post-response {
+  protocolo: res.body.protocolo
+}
+
+assert {
+  res.status: eq 202
+  res.body.situacao: eq recebida
+}
+
+docs {
+  Pedido valido. Responde 202 Accepted com protocolo, situacao "recebida" e
+  cabecalho Location. O protocolo e guardado na variavel {{protocolo}} para a
+  requisicao seguinte.
+}

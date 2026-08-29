@@ -1,0 +1,21 @@
+### GET /elegibilidades/{protocolo} — recuperando o pedido aceito
+$ curl -i http://127.0.0.1:8000/elegibilidades/1650dcbc-9f28-44ba-9d63-ad703e97dcfc
+
+HTTP/1.1 200 OK
+date: Sat, 29 Aug 2026 20:38:08 GMT
+server: uvicorn
+content-length: 116
+content-type: application/json
+
+{"protocolo":"1650dcbc-9f28-44ba-9d63-ad703e97dcfc","situacao":"recebida","criado_em":"2026-08-29T20:38:01.805447Z"}
+
+### GET com protocolo inexistente — 404
+$ curl -i http://127.0.0.1:8000/elegibilidades/nao-existe
+
+HTTP/1.1 404 Not Found
+date: Sat, 29 Aug 2026 20:38:08 GMT
+server: uvicorn
+content-length: 112
+content-type: application/json
+
+{"codigo":"elegibilidade_nao_encontrada","mensagem":"Protocolo de elegibilidade não encontrado.","detalhes":[]}

@@ -1,0 +1,21 @@
+meta {
+  name: 02 - GET elegibilidade por protocolo (200)
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/elegibilidades/{{protocolo}}
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 200
+  res.body.protocolo: eq {{protocolo}}
+}
+
+docs {
+  Recupera o pedido usando o protocolo devolvido pelo POST. Rode a requisicao 01
+  antes: o armazenamento e em memoria, entao reiniciar o servidor apaga tudo.
+}

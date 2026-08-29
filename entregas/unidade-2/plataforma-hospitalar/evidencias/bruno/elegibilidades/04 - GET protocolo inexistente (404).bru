@@ -1,0 +1,21 @@
+meta {
+  name: 04 - GET protocolo inexistente (404)
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/elegibilidades/nao-existe
+  body: none
+  auth: none
+}
+
+assert {
+  res.status: eq 404
+  res.body.codigo: eq elegibilidade_nao_encontrada
+}
+
+docs {
+  Protocolo que nunca existiu. Responde 404 com codigo
+  "elegibilidade_nao_encontrada" — estado explicito, nao corpo vazio.
+}

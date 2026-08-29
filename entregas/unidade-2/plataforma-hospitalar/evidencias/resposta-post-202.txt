@@ -1,0 +1,12 @@
+### POST /elegibilidades — pedido valido
+$ curl -i -X POST http://127.0.0.1:8000/elegibilidades -H 'Content-Type: application/json' \
+    -d '{"cpf":"12345678901","codigo_operadora":"OPS-001","matricula_plano":"MAT-2026-001"}'
+
+HTTP/1.1 202 Accepted
+date: Sat, 29 Aug 2026 20:38:01 GMT
+server: uvicorn
+content-length: 116
+content-type: application/json
+location: /elegibilidades/1650dcbc-9f28-44ba-9d63-ad703e97dcfc
+
+{"protocolo":"1650dcbc-9f28-44ba-9d63-ad703e97dcfc","situacao":"recebida","criado_em":"2026-08-29T20:38:01.805447Z"}

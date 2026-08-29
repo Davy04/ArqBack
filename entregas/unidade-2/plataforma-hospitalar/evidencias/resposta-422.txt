@@ -1,0 +1,23 @@
+### POST sem o campo cpf — 422 esperado
+$ curl -i -X POST http://127.0.0.1:8000/elegibilidades -H 'Content-Type: application/json' \
+    -d '{"codigo_operadora":"OPS-001","matricula_plano":"MAT-2026-001"}'
+
+HTTP/1.1 422 Unprocessable Content
+date: Sat, 29 Aug 2026 20:38:17 GMT
+server: uvicorn
+content-length: 160
+content-type: application/json
+
+{"codigo":"dados_invalidos","mensagem":"A requisição não atende ao contrato.","detalhes":[{"campo":"body.cpf","mensagem":"Field required","tipo":"missing"}]}
+
+### POST com cpf = 123, o mesmo valor da falha deliberada do Spectral — 422 esperado
+$ curl -i -X POST http://127.0.0.1:8000/elegibilidades -H 'Content-Type: application/json' \
+    -d '{"cpf":"123","codigo_operadora":"OPS-001","matricula_plano":"MAT-2026-001"}'
+
+HTTP/1.1 422 Unprocessable Content
+date: Sat, 29 Aug 2026 20:38:17 GMT
+server: uvicorn
+content-length: 201
+content-type: application/json
+
+{"codigo":"dados_invalidos","mensagem":"A requisição não atende ao contrato.","detalhes":[{"campo":"body.cpf","mensagem":"String should match pattern '^\\d{11}$'","tipo":"string_pattern_mismatch"}]}
