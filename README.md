@@ -57,3 +57,36 @@ py -m venv .venv
 O `pyyaml` entra à parte porque o `pyproject.toml` do laboratório não o declara,
 embora `tests/test_api_contract.py` importe `yaml`. Com a API no ar, abra
 http://127.0.0.1:8000/docs ou importe `evidencias/bruno/elegibilidades/` no Bruno.
+
+## Módulo 3 — Oficina: dois serviços, dois bancos e uma falha parcial
+
+[`entregas/unidade-3/oficina-servicos/`](entregas/unidade-3/oficina-servicos/)
+— Elegibilidade e Exames em contêineres separados, cada um com seu Postgres numa
+rede interna própria. As evidências estão em `evidencias/modulo-3/`, numeradas na
+ordem da execução.
+
+| Momento | O que apareceu |
+|---|---|
+| Estado nominal | quatro contêineres `healthy`, `/health` 200 nos dois serviços, `POST /exames` 201 |
+| Fronteira de rede | de dentro de Exames, `db_elegibilidade` não resolve; `db_exames` e `elegibilidade` resolvem |
+| Falha parcial | Elegibilidade parada: `POST /exames` 503 `dependencia_indisponivel` e `/health` 200 na mesma instância |
+| Recuperação | tudo saudável de novo e novo 201, com a gravação anterior preservada |
+| Testes | 4 testes de fronteira aprovados |
+
+A nota em [`observacoes.md`](entregas/unidade-3/oficina-servicos/evidencias/modulo-3/observacoes.md)
+registra também que o 503 levou cerca de 3,3 s para chegar, mesmo com o prazo de
+2 s declarado no cliente HTTP.
+
+### Como rodar
+
+Docker Desktop em execução e Python 3.11+.
+
+```bash
+cd entregas/unidade-3/oficina-servicos
+py -m venv .venv
+.venv\Scripts\python.exe -m pip install -e ".[dev]"
+$env:ELEGIBILIDADE_PORT = 18001; $env:EXAMES_PORT = 18002
+docker compose -f infra/compose.servicos.yml up -d --build --wait
+.venv\Scripts\python.exe -m pytest tests/test_service_boundaries.py -q
+docker compose -f infra/compose.servicos.yml down -v
+```

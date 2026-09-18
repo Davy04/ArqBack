@@ -1,0 +1,5 @@
+### Quanto tempo o 503 demora (Elegibilidade ainda parada)
+POST /exames -> 503 em 3.333521s
+POST /exames -> 503 em 3.307698s
+POST /exames -> 503 em 3.335365s
+GET /health  -> 200 em 0.011330s

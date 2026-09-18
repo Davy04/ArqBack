@@ -1,0 +1,20 @@
+### Recuperacao (Elegibilidade de volta)
+$ docker compose -f infra/compose.servicos.yml up -d --wait
+$ docker compose -f infra/compose.servicos.yml ps
+SERVICE            STATUS                        PORTS
+db_elegibilidade   Up About a minute (healthy)   5432/tcp
+db_exames          Up About a minute (healthy)   5432/tcp
+elegibilidade      Up 5 seconds (healthy)        0.0.0.0:18001->8000/tcp, [::]:18001->8000/tcp
+exames             Up 3 seconds (healthy)        0.0.0.0:18002->8000/tcp, [::]:18002->8000/tcp
+
+{"status":"ok","servico":"elegibilidade"}  <- GET http://localhost:18001/health: 200
+{"status":"ok","servico":"exames"}  <- GET http://localhost:18002/health: 200
+
+$ curl -i -X POST http://localhost:18002/exames  (o mesmo pedido de antes)
+HTTP/1.1 201 Created
+date: Fri, 18 Sep 2026 02:21:40 GMT
+server: uvicorn
+content-length: 102
+content-type: application/json
+
+{"beneficiario_id":"paciente-001","codigo_exame":"HEM-001","solicitacao_id":2,"situacao":"solicitado"}

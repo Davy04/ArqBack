@@ -1,0 +1,17 @@
+### Beneficiario inelegivel (paciente-002): decisao de negocio, nao falha tecnica
+$ curl -i -X POST http://localhost:18002/exames -d '{"beneficiario_id":"paciente-002","codigo_exame":"HEM-001"}'
+HTTP/1.1 422 Unprocessable Entity
+date: Fri, 18 Sep 2026 02:20:22 GMT
+server: uvicorn
+content-length: 47
+content-type: application/json
+
+{"detail":{"codigo":"beneficiario_inelegivel"}}
+
+### Fronteira de rede: de dentro do conteiner de Exames
+$ docker compose exec exames python -c "socket.gethostbyname('db_exames')"
+resolve: 172.19.0.2
+$ docker compose exec exames python -c "socket.gethostbyname('db_elegibilidade')"
+NAO resolve: [Errno -2] Name or service not known
+$ docker compose exec exames python -c "socket.gethostbyname('elegibilidade')"
+resolve: 172.20.0.2

@@ -1,0 +1,9 @@
+### POST /exames com beneficiario elegivel: 201 esperado
+$ curl -i -X POST http://localhost:18002/exames -H 'Content-Type: application/json' -d '{"beneficiario_id":"paciente-001","codigo_exame":"HEM-001"}'
+HTTP/1.1 201 Created
+date: Fri, 18 Sep 2026 02:20:12 GMT
+server: uvicorn
+content-length: 102
+content-type: application/json
+
+{"beneficiario_id":"paciente-001","codigo_exame":"HEM-001","solicitacao_id":1,"situacao":"solicitado"}

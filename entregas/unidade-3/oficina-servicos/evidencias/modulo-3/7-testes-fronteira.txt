@@ -1,0 +1,15 @@
+$ python -m pytest tests/test_service_boundaries.py -v
+============================= test session starts =============================
+platform win32 -- Python 3.13.7, pytest-9.1.1, pluggy-1.6.0 -- C:\Users\Davy\Desktop\github\ArqBack\entregas\unidade-3\oficina-servicos\.venv\Scripts\python.exe
+cachedir: .pytest_cache
+rootdir: C:\Users\Davy\Desktop\github\ArqBack\entregas\unidade-3\oficina-servicos
+configfile: pyproject.toml
+plugins: anyio-4.15.1
+collecting ... collected 4 items
+
+tests/test_service_boundaries.py::test_exames_consumes_eligibility_only_through_http_contract PASSED [ 25%]
+tests/test_service_boundaries.py::test_exames_makes_partial_failure_observable_when_dependency_is_down PASSED [ 50%]
+tests/test_service_boundaries.py::test_exames_makes_its_own_database_failure_observable PASSED [ 75%]
+tests/test_service_boundaries.py::test_exames_source_cannot_access_eligibility_table_directly PASSED [100%]
+
+============================== 4 passed in 0.74s ==============================

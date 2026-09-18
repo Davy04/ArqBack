@@ -1,0 +1,25 @@
+### Estado nominal: os quatro servicos saudaveis
+$ docker compose -f infra/compose.servicos.yml ps
+SERVICE            STATUS                    PORTS
+db_elegibilidade   Up 19 seconds (healthy)   5432/tcp
+db_exames          Up 19 seconds (healthy)   5432/tcp
+elegibilidade      Up 14 seconds (healthy)   0.0.0.0:18001->8000/tcp, [::]:18001->8000/tcp
+exames             Up 11 seconds (healthy)   0.0.0.0:18002->8000/tcp, [::]:18002->8000/tcp
+
+$ curl -i http://localhost:18001/health
+HTTP/1.1 200 OK
+date: Fri, 18 Sep 2026 02:20:12 GMT
+server: uvicorn
+content-length: 41
+content-type: application/json
+
+{"status":"ok","servico":"elegibilidade"}
+
+$ curl -i http://localhost:18002/health
+HTTP/1.1 200 OK
+date: Fri, 18 Sep 2026 02:20:12 GMT
+server: uvicorn
+content-length: 34
+content-type: application/json
+
+{"status":"ok","servico":"exames"}
